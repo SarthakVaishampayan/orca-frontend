@@ -10,6 +10,7 @@ dns.setDefaultResultOrder("verbatim");
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: "0.0.0.0",
     proxy: {
       "/users": "https://orca-server.ayushcodings.me/api/v1",
       "/services": "https://orca-server.ayushcodings.me/api/v1",
