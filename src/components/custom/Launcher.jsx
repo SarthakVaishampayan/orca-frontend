@@ -52,6 +52,7 @@ export default function Launcher() {
   };
 
   const startInstance = async () => {
+    setLoading(true);
     try {
       console.log(instanceName, selectedService, region);
       const res = await axios.post("/containers/startNew", {
@@ -61,6 +62,7 @@ export default function Launcher() {
       });
       navigate("/dashboard");
     } catch (error) {
+      setLoading(false);
       toast({
         variant: "destructive",
         title: "Uh oh! Some error occured.",
