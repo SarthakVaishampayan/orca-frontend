@@ -1,95 +1,77 @@
-import { useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Button } from "../ui/button";
-import { useToast } from "../ui/use-toast";
-import { useAuth } from "@/contexts/authContext";
-import axios from "axios";
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/Ka1ThUjx9DC
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
 
-const Login = () => {
-  const { authStatus, setauthStatus } = useAuth();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("/users/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-      setauthStatus(true);
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Some error has occured.",
-        description: error.response.data.message,
-      });
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    if (authStatus) {
-      navigate("/dashboard");
-    }
-  }, [authStatus]);
-
+export default function Login() {
   return (
-    <div className="flex items-center justify-center h-screen bg-secondary">
-      <Card className="p-5">
-        <CardHeader>
-          <CardTitle className="text-4xl mb-2">Login to Orca</CardTitle>
-          <CardDescription>
-            Access your account and get anonymous
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Input
-            name="email"
-            className="mb-5"
-            placeholder="Email"
-            type="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          <Input
-            name="password"
-            className="mb-5"
-            placeholder="Password"
-            type="password"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-
-          <Button onClick={handleLogin}>Login</Button>
-        </CardContent>
-        <CardFooter>
-          <p>
-            Not have an account ?
-            <Link className="text-blue-600" to="/signup">
-              {" "}
-              Register
-            </Link>{" "}
+    <div className="flex h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            Or{" "}
+            <Link to="#" className="font-medium text-primary hover:text-primary/90" >
+              register for a new account
+            </Link>
           </p>
-        </CardFooter>
-      </Card>
+        </div>
+        <form className="mt-8 space-y-6" action="#" method="POST">
+          <div className="-space-y-px rounded-md shadow-sm">
+            <div>
+              <label htmlFor="email" className="sr-only">
+                Email address
+              </label>
+              <input
+                className="relative block w-full appearance-none rounded-t-md border border-input bg-background px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm mb-4"
+                placeholder="Email address"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                className="relative block w-full appearance-none rounded-b-md border border-input bg-background px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
+                Remember me
+              </label>
+            </div>
+            <div className="text-sm">
+              <Link to="#" className="font-medium text-primary hover:text-primary/90" >
+                Forgot your password?
+              </Link>
+            </div>
+          </div>
+          <div>
+            <Button type="submit" className="w-full">
+              Sign in
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
-  );
-};
-
-export default Login;
+  )
+}

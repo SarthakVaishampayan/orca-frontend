@@ -1,75 +1,120 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardDescription,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from "@/components/ui/collapsible";
 
 export default function Sidebar() {
+  const [isMinimized, setIsMinimized] = useState(false);
   const navigate = useNavigate();
   return (
-    <aside className="w-64 p-4 border-r bg-secondary h-screen flex flex-col justify-between">
-      <div>
-        <div className="flex justify-between items-center px-4 cursor-pointer">
-          <h1 className="text-xl font-extrabold ">Orca Console</h1>
-          <Icon className="w-10 h-10 font-extrabold" />
-        </div>
-        <hr className="my-3 border-black" />
-        <nav className="space-y-2">
+    <div
+      className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-background shadow-lg transition-all duration-300 ${
+        isMinimized
+          ? "w-16 overflow-hidden hover:w-64"
+          : "w-64 hover:w-64 overflow-visible"
+      }`}
+      onMouseEnter={() => setIsMinimized(false)}
+      onMouseLeave={() => setIsMinimized(true)}
+    >
+      <div className=" flex h-16 items-center justify-between border-b bg-primary px-4 text-primary-foreground">
+        <Link to="#" className="flex items-center gap-2">
+          <BikeIcon className="h-6 w-6" />
+          <span className={`font-bold ${isMinimized ? "hidden" : "block"}`}>
+            BikeSetu
+          </span>
+        </Link>
+      </div>
+      <nav className="flex-1 overflow-auto">
+        <div className="grid gap-2 p-4">
           <Link
             to="/dashboard"
-            className="block px-4 py-2 text-base font-medium"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
           >
-            Dashboard
+            <BarChartIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Dashboard
+            </span>
           </Link>
           <Link
-            to="/launch-new-orca"
-            className="block px-4 py-2 text-base font-medium"
+            to="/new-order"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
           >
-            Orca Services
+            <PackageIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              New Order
+            </span>
           </Link>
           <Link
-            to="/buy-credits"
-            className="block px-4 py-2 text-base font-medium"
+            to="/previous-orders"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
           >
-            Buy Credits
+            <PackageIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Previous Orders
+            </span>
           </Link>
-          <Link to="/profile" className="block px-4 py-2 text-base font-medium">
-            Profile
+
+          <Link
+            to="/products"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
+          >
+            <PackageIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Products
+            </span>
           </Link>
-        </nav>
-      </div>
-      <div className="flex flex-col justify-end">
-        <div className="mt-auto">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle className="mb-2">Upgrade to Pro</CardTitle>
-              <CardDescription>
-                Unlock all features and get unlimited access to our support team
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                onClick={() => {
-                  navigate("/upgrade");
-                }}
-                size="sm"
-                className="w-full"
-              >
-                Upgrade
-              </Button>
-            </CardContent>
-          </Card>
+          <Link
+            to="/sales"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
+          >
+            <ActivityIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Sales
+            </span>
+          </Link>
+
+          <Link
+            to="/customers"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
+          >
+            <UsersIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Customers
+            </span>
+          </Link>
+          <Link
+            to="/askAI"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
+              isMinimized ? "justify-center" : ""
+            }`}
+          >
+            <UsersIcon className="h-5 w-5" />
+            <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
+              Ask AI
+            </span>
+          </Link>
         </div>
-      </div>
-    </aside>
+      </nav>
+    </div>
   );
 }
-
-function Logo(props) {
+function ActivityIcon(props) {
   return (
     <svg
       {...props}
@@ -83,31 +128,232 @@ function Logo(props) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-      <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-      <line x1="6" x2="6.01" y1="6" y2="6" />
-      <line x1="6" x2="6.01" y1="18" y2="18" />
+      <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
     </svg>
   );
 }
-
-function Icon(props) {
+function ChevronDownIcon(props) {
   return (
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="1280"
-      height="1280"
-      viewBox="0 0 2000 2000"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <path
-        fill="#0E1124"
-        d="M663 380l21 3 44 11 29 9 22 8 35 16 16 8 26 15 15 10 14 10 12 9 14 12 11 9 6 5v2l4 2 14 14v2h2l9 11 10 11 10 13 11 15 13 17 9 8 17 10 14 6 30 7 35 9 37 12 33 12 17 8 23 13 12 8 22 15 13 10 14 12 11 9 33 33 9 11 11 13 11 15 10 15 9 15 8 16 9 19 8 24 4 18 3 21v36l-3 21-3 9-6 10-9 12-12 13-12 11-17 12-14 8-16 8-21 8-27 8-20 4-25 3-13 1h-49l-37-3-9-1-4-4 3-3 36-2 29-3 30-5 28-7 16-6 19-8 21-12 7-7 6-10 3-10v-16l-3-10-6-11-9-7-21-11-24-8-22-5-13-2-13-1h-20l-24 3-18 5-13 5-13 7-14 10-11 9-10 11-11 14-10 16-10 15-14 19-9 12-11 12-9 11-12 12-8 7-9 9-20 15-13 9-21 11-22 8-6 1h-13l-10-4-7-8-3-8v-12l4-17 5-12 9-19 9-24 8-25 4-20 2-19v-25l-3-24-5-17-9-21-9-15-11-12v-2l-4-2-9-8-20-12-14-5-17-4-21-2h-59l-27 3-23 4-25 7-27 11-21 11-16 11-12 9-10 9-17 17-10 14-11 16-12 22-10 24-9 25-7 30-4 26-3 33v44l2 22 4 25 3 10v3h4l2-15 9-39 6-20 8-21 8-17 13-22 9-13 7-7 7-8 8-6 7-3 6 1 4 3 1 3v8l-11 29-9 27-7 30-4 28-1 13v30l2 18 4 18 5 15 7 13 9 10 10 7 13 5 50 12 27 9 22 11 21 13 13 11 13 12 8 8 12 16 9 14 8 15 11 27 4 12v12l-7 8-2 1h-10l-18-11-16-7-18-5-21-3-66-1-17-3-17-5-16-7-8-1-8 4-5 8-8 17-8 12-9 10-10 9-12 11-14 10-12 9-6 3-8 3-10 9-10 14-12 23-7 14-7 11-5 5-6-1-9-9-10-15-8-18-6-21-2-10v-31l5-25 7-25 11-28 8-15 8-16 9-16 11-16 6-12 3-10v-15l-4-11-7-13-10-14-10-18-9-16-12-28-12-34-6-18-7-30-5-29-3-28-1-16v-39l3-35 5-32 6-26 12-36 10-25 7-16 13-23 12-20 13-18 10-14 10-11 8-10 12-13 24-24 8-7 13-11 12-9 10-8 26-17 18-11 18-10 28-14 30-12 19-10 9-7 7-6 1-2h2l2-4 9-12 7-16 4-15 1-7v-22l-4-18-8-22-10-20-12-20-8-12-12-16-14-17-9-10-4-5-1-9 5-8zm499 422l-9 3-5 5-1 2 1 9 6 9 4 5h2v2l13 10 17 9 19 8 15 4 9 1h9l9-2 7-6 1-2-1-9-6-10-5-6-12-9-18-10-15-7-19-5-8-1zM1113 1292h56l21 2 13 5 9 6 5 4 6 10 4 12v19l-5 15-8 10-13 8h-2l5 9 14 19 8 12 3 5-5 1h-21l-5-5-12-18-8-11-4-5h-35v38l-15 1h-11l-1-1v-135zm26 21l-1 2v53h38l9-2 8-5 5-6 3-8v-14l-4-9-7-6-12-4-9-1z"
-      ></path>
-      <path
-        fill="#0E1124"
-        d="M945 1291h27l16 4 12 6 13 10 8 10 7 14 3 11 1 8v13l-3 16-5 12-7 10-9 9-10 7-11 5-17 4h-25l-16-4-14-7-10-8-9-11-7-14-4-14-1-6v-11l3-14 5-13 9-14 9-9 16-9 13-4zm7 21l-14 4-10 6-8 8-6 11-3 8-1 5v13l3 11 6 11 9 10 14 7 9 2h15l11-3 12-6 8-8 7-14 2-9v-14l-3-13-6-11-8-8-16-8-9-2zM1548 1292h23l3 3 14 30 19 43 17 37 9 21v2l-3 1h-21l-3-1-12-30-69-1-3 9-6 15-4 7-24 1-2-2 7-15 15-35 11-23 13-30 14-30zm10 27l-5 12-14 34-5 10v2h50l-1-5-15-36-7-16zM1359 1291h28l15 4 17 9 7 7-1 4-9 9h-2l-1 3-3 1-11-8-11-5-8-2h-13l-14 4-10 6-7 6-6 10-4 16v12l4 15 6 10 10 8 11 5 10 2h14l12-3 9-5 7-6 5 2 12 11-2 5-7 7-16 8-16 4-13 1-19-2-15-5-10-6-12-11-9-12-5-13-3-16v-11l3-17 6-14 8-10 10-10 12-7 15-5z"
-      ></path>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+function BoxIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+      <path d="m3.3 7 8.7 5 8.7-5" />
+      <path d="M12 22V12" />
+    </svg>
+  );
+}
+function CirclePlusIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12h8" />
+      <path d="M12 8v8" />
+    </svg>
+  );
+}
+function ShoppingCartIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="8" cy="21" r="1" />
+      <circle cx="19" cy="21" r="1" />
+      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+    </svg>
+  );
+}
+
+function BarChartIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" x2="12" y1="20" y2="10" />
+      <line x1="18" x2="18" y1="20" y2="4" />
+      <line x1="6" x2="6" y1="20" y2="16" />
+    </svg>
+  );
+}
+
+function BikeIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="18.5" cy="17.5" r="3.5" />
+      <circle cx="5.5" cy="17.5" r="3.5" />
+      <circle cx="15" cy="5" r="1" />
+      <path d="M12 17.5V14l-3-3 4-3 2 3h2" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  );
+}
+
+function CircleHelpIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <path d="M12 17h.01" />
+    </svg>
+  );
+}
+
+function PackageIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m7.5 4.27 9 5.15" />
+      <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+      <path d="m3.3 7 8.7 5 8.7-5" />
+      <path d="M12 22V12" />
+    </svg>
+  );
+}
+
+function SettingsIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function UsersIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
   );
 }

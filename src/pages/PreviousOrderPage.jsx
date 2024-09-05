@@ -1,8 +1,8 @@
-import Analytics from "@/components/custom/analytics";
+import PreviousOrder from "@/components/custom/previousOrder";
 import Sidebar from "@/components/custom/sidebar";
 import Navbar from "@/components/custom/ṇavbar";
 
-export default function Dashboard(params) {
+export default function PreviousOrderPage(params) {
   return (
     <>
       <div className="ml-12">
@@ -12,7 +12,7 @@ export default function Dashboard(params) {
         <Sidebar />
       </div>
       <div className="ml-12">
-        <Analytics />
+        <PreviousOrder />
       </div>
     </>
   );
