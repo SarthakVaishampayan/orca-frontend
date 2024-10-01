@@ -22,9 +22,9 @@ export default function Sidebar() {
     >
       <div className=" flex h-16 items-center justify-between border-b bg-primary px-4 text-primary-foreground">
         <Link to="#" className="flex items-center gap-2">
-          <BikeIcon className="h-6 w-6" />
+          {/* <BikeIcon className="h-6 w-6" /> */}
           <span className={`font-bold ${isMinimized ? "hidden" : "block"}`}>
-            BikeSetu
+           ABC
           </span>
         </Link>
       </div>

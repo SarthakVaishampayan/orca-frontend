@@ -91,7 +91,7 @@ export default function AskAI() {
       </div>
       <div className="grid gap-6 md:gap-8">
         <div className="grid grid-cols-2 gap-4">
-          <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
+          {/* <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
             <img
               src="/placeholder.svg"
               alt="Electric Scooter 1"
@@ -118,8 +118,8 @@ export default function AskAI() {
               <h3 className="text-xl font-bold">Segway Ninebot</h3>
               <p className="text-sm text-muted-foreground">$499</p>
             </div>
-          </div>
-          <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
+          </div> */}
+          {/* <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
             <img
               src="/placeholder.svg"
               alt="Electric Scooter 3"
@@ -132,8 +132,8 @@ export default function AskAI() {
               <h3 className="text-xl font-bold">Xiaomi Mi Pro 2</h3>
               <p className="text-sm text-muted-foreground">$599</p>
             </div>
-          </div>
-          <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
+          </div> */}
+          {/* <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
             <img
               src="/placeholder.svg"
               alt="Electric Scooter 4"
@@ -146,7 +146,7 @@ export default function AskAI() {
               <h3 className="text-xl font-bold">Gotrax G4</h3>
               <p className="text-sm text-muted-foreground">$399</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
