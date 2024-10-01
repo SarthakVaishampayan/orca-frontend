@@ -98,7 +98,7 @@ export default function Sidebar() {
               Customers
             </span>
           </Link>
-          <Link
+          {/* <Link
             to="/askAI"
             className={`flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground ${
               isMinimized ? "justify-center" : ""
@@ -108,7 +108,7 @@ export default function Sidebar() {
             <span className={`font-medium ${isMinimized ? "hidden" : "block"}`}>
               Ask AI
             </span>
-          </Link>
+          </Link> */}
         </div>
       </nav>
     </div>
